@@ -26,16 +26,18 @@ def main():
             links.append(link)
             file.write(f'{link}\n')
 
-    result = {}
+    result = []
     for link in links:
+        obj = {}
         driver.get(link)
         skills_elements = driver.find_elements(By.XPATH, '//li[@data-qa="skills-element"]')
         skills = []
+        obj['link'] = link
         for skill in skills_elements:
             skills.append(skill.text)
             print(skill.text)
-        result[f'{link}'] = skills
-
+        obj['skills'] = skills
+        result.append(obj)
     print(result)
 
     with open('result.txt', 'w') as file:
