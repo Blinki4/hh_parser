@@ -1,5 +1,5 @@
-import time
 
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -26,14 +26,6 @@ def main():
             links.append(link)
             file.write(f'{link}\n')
 
-    # driver.get('https://hh.ru/vacancy/131099127?query=Qa+automation+python&hhtmFrom=vacancy_search_list')
-    # skills_elements = driver.find_elements(By.XPATH, '//li[@data-qa="skills-element"]')
-    # skills = []
-    # for skill in skills_elements:
-    #     skills.append(skill.text)
-    #     print(skill.text)
-    # result[f'{link}'] = skills
-    # print(result)
     result = {}
     for link in links:
         driver.get(link)
@@ -47,7 +39,7 @@ def main():
     print(result)
 
     with open('result.txt', 'w') as file:
-        file.write(json.dumps(result, indent=4))
+        file.write(json.dumps(result, indent=4, ensure_ascii=False))
 
     driver.quit()
 
