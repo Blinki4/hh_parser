@@ -12,12 +12,14 @@ from helpers.get_job_links import get_job_links
 def main():
 
     query = sys.argv[1]
+    print('Идет поиск, не прерывайте выполнение программы')
     links = get_job_links(query)
     parsed_data = parse_links(links)
     skills = get_all_skills(parsed_data)
 
     write_results(parsed_data, skills)
 
+    print('Результаты сформированы в папке results')
 
 if __name__ == '__main__':
     main()
