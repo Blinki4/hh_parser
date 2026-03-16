@@ -11,7 +11,6 @@ def parse_links(links: list[str]) -> list[ParsedLink]:
         skills: list[str] = []
         for skill in job_page.skills:
             skills.append(skill.text)
-            print(skill.text)
 
         job_data = ParsedLink(link=link, skills=skills)
         result.append(job_data.model_dump())
