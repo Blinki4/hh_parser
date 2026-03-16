@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 class BasePage:
     base_url = 'https://hh.ru/'
 
+
     def __init__(self):
         options = Options()
         options.add_argument('--headless')
