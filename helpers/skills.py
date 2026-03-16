@@ -24,9 +24,6 @@ def sort_skills(skills: list[str]):
             result[skill] = 1
 
 
-
-
-
     sorted_skills = sorted(result.items(), key=lambda x: x[1])[::-1]
     return sorted_skills
 
