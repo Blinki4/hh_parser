@@ -12,7 +12,7 @@ def parse_links(links: list[str]) -> list[ParsedLink]:
         for skill in job_page.skills:
             skills.append(skill.text)
 
-        job_data = ParsedLink(link=link, skills=skills)
+        job_data = ParsedLink(name=job_page.job_name, link=link, skills=skills)
         result.append(job_data.model_dump())
         job_page.quit()
 
