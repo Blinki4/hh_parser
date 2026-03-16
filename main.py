@@ -10,8 +10,6 @@ def main():
     search_page.write_links_in_file('links.txt')
     search_page.quit()
 
-    result = []
-
     result = parse_links(search_page.links)
     print(result)
 
