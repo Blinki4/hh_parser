@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 class SearchPage(BasePage):
 
     job_title_selector = (By.XPATH, '//a[@data-qa="serp-item__title"]')
-    links = []
+
 
     def __init__(self, query):
         super().__init__()
@@ -17,9 +17,16 @@ class SearchPage(BasePage):
         return self.find_all(self.job_title_selector)
 
 
-    def write_links_in_file(self, path):
-        with open(path, 'w') as file:
-            for el in self.job_titles:
-                link = el.get_attribute('href')
-                file.write(f'{link}\n')
-                self.links.append(link)
+    def get_links(self):
+        links = []
+        for el in self.job_titles:
+            link = el.get_attribute('href')
+            links.append(link)
+        return links
+
+
+    #     with open(path, 'w') as file:
+    #         for el in self.job_titles:
+    #             link = el.get_attribute('href')
+    #             file.write(f'{link}\n')
+    #             self.links.append(link)

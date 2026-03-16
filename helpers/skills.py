@@ -11,8 +11,6 @@ def get_all_skills(data: list[ParsedLink]) -> list[str]:
     return result
 
 
-
-
 def sort_skills(skills: list[str]):
 
     result = {}
