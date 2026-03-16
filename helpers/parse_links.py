@@ -1,28 +1,23 @@
 from pages.JobPage import JobPage
+from models.parsed_links import ParsedLink
 
 
-def parse_links(links: list[str]): #TODO pydantic схема
-    result = []
+def parse_links(links: list[str]) -> list[ParsedLink]:
+    result: list[ParsedLink] = []
     for link in links:
         job_page = JobPage()
         job_page.open(link)
 
-        job_data = {}
-        job_data['link'] = link
-        skills = []
-
+        skills: list[str] = []
         for skill in job_page.skills:
             skills.append(skill.text)
             print(skill.text)
 
-        job_data['skills'] = skills
-        result.append(job_data)
+        job_data = ParsedLink(link=link, skills=skills)
+        result.append(job_data.model_dump())
         job_page.quit()
 
     return result
-
-
-
 
 
 
