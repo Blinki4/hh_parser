@@ -1,16 +1,6 @@
 from models.parsed_links import ParsedLink
 
 
-def get_all_skills(data: list[ParsedLink]) -> list[str]:
-    result: list[str] = []
-
-    for link in data:
-        for skill in link['skills']:
-            result.append(skill)
-
-    return result
-
-
 def sort_skills(skills: list[str]):
 
     result = {}
@@ -23,6 +13,18 @@ def sort_skills(skills: list[str]):
 
 
     sorted_skills = sorted(result.items(), key=lambda x: x[1])[::-1]
+    return sorted_skills
+
+
+def get_all_skills(data: list[ParsedLink]):
+    result: list[str] = []
+
+    for link in data:
+        for skill in link['skills']:
+            result.append(skill)
+
+
+    sorted_skills = sort_skills(result)
     return sorted_skills
 
 if __name__ == '__main__':
