@@ -16,8 +16,8 @@ class SearchPage(BasePage):
 
     def __init__(self, query):
         super().__init__()
-        self.current_page = 0
-        self.url = self.base_url + f'search/vacancy?text={query}&page={self.current_page}&ored_clusters=true&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&L_save_area=true'
+        self.query = query
+        self.url = self.base_url + f'search/vacancy?text={query}&ored_clusters=true&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&L_save_area=true'
         self.open(self.url)
         self.pages_count = self.get_pages_count()
 
@@ -32,6 +32,10 @@ class SearchPage(BasePage):
         for el in self.job_titles:
             link = el.get_attribute('href')
             self.links.append(link)
+
+
+    def make_url(self, page):
+        return self.base_url + f'search/vacancy?text={self.query}&page={page}&ored_clusters=true&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&L_save_area=true'
 
 
     def get_pages_count(self) -> int:
