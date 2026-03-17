@@ -10,40 +10,32 @@ from helpers.skills import get_all_skills
 
 
 def main():
-    start = datetime.now()
-    print(start)
+    print(f'Started - {datetime.now()}')
     query = sys.argv[1]
-    print('Идет поиск, не прерывайте выполнение программы')
-
-    # links = get_job_links(query)
+    ###
+    # Поиск ссылок на вакансии
     search_page = SearchPage(query) # Открываем страницу, получаем кол-во страниц TODO: Заменять пробелы в поиске на +
-
-
-    print('PAGES_COUNT', search_page.pages_count)
-
-    for page in range(search_page.pages_count):
-        # print(search_page.make_url(page))
-        search_page.open(search_page.make_url(page))
-        search_page.get_links()
-        # print(page, search_page.links, len(search_page.links))
-        print(f'Страница {page + 1} просмотрена')
-
-    print('LINKS', search_page.links, len(search_page.links))
-
+    search_page.open(search_page.url)
+    print('Начался поиск, не прерывайте выполнение программы')
+    pages = search_page.get_pages_count()
+    print(f'Всего найдено страниц: {pages}')
+    links = search_page.collect_links(pages)
+    print(f'Всего найдено вакансий: {len(links)}')
+    write_links(links)
+    search_page.quit()
+    # Конец поиска, закрытие драйвера
+    ###
+    # Начало парсинга скиллов
     job_page = JobPage()
-    write_links(search_page.links)
-    parsed_data = parse_links(search_page.links, job_page)
+    parsed_data = parse_links(links, job_page)
     skills = get_all_skills(parsed_data)
-
     write_results(parsed_data, skills)
     job_page.quit()
     print('Результаты сформированы в директории results')
+    # Конец парсинга, закрытие драйвера
+    ###
 
-    #Можно не делать пагинацию для скиллов, а просто открывать ссылки
-    # Записывать в файл построчно, а не все разом
-
-    end = datetime.now()
-    print(end)
+    print(f'End - {datetime.now()}')
 
 if __name__ == '__main__':
     main()

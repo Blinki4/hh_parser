@@ -4,20 +4,22 @@ from models.parsed_links import ParsedLink
 
 def parse_links(links: list[str], page: JobPage) -> list[ParsedLink]:
     result: list[ParsedLink] = []
-    for i in range(len(links)):
-        page.open(links[i])
+    try:
+        for i in range(len(links)):
+            page.open(links[i])
 
-        skills: list[str] = []
-        for skill in page.skills:
-            skills.append(skill.text)
+            skills: list[str] = []
+            for skill in page.skills:
+                skills.append(skill.text)
 
-        job_data = ParsedLink(name=page.job_name, link=links[i], skills=skills)
-        result.append(job_data.model_dump())
-        print(i)
-        # page.quit() # Не открывать каждый раз драйвер
+            job_data = ParsedLink(name=page.job_name, link=links[i], skills=skills)
+            result.append(job_data.model_dump())
+            print(i + 1)
 
-    return result
-
+        return result
+    except KeyboardInterrupt:
+        print('Прервано... Промежуточные результаты сохранены в директории results')
+        return result
 
 
 if __name__ == '__main__':
