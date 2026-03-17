@@ -4,6 +4,14 @@ from models.parsed_links import ParsedLink
 from pathlib import Path
 
 
+def write_links(links: list[str]) -> None:
+    output_dir = Path('results')
+    output_dir.mkdir(exist_ok=True)
+
+    with open(output_dir / 'links.txt', 'w') as file:
+        for link in links:
+            file.write(f'{link}\n')
+
 def write_results(data: list[ParsedLink], skills: list[tuple]):
     output_dir = Path('results')
     output_dir.mkdir(exist_ok=True)
