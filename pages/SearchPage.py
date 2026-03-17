@@ -43,7 +43,6 @@ class SearchPage(BasePage):
             'arguments[0].scrollIntoView(true);',
             self.job_titles[-1]
             )
-        # self.scroll_page_to_bottom()
         try:
             pages = WebDriverWait(self.driver, 10).until(
                     EC.presence_of_all_elements_located(self.page_selector)
