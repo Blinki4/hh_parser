@@ -1,4 +1,5 @@
 import sys
+import time
 
 from datetime import datetime
 
@@ -34,7 +35,6 @@ def main():
     print('Результаты сформированы в директории results')
     # Конец парсинга, закрытие драйвера
     ###
-
     print(f'End - {datetime.now()}')
 
 if __name__ == '__main__':
