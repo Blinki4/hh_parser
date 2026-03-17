@@ -9,7 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 class SearchPage(BasePage):
 
     job_title_selector = (By.XPATH, '//a[@data-qa="serp-item__title"]')
-    pages_count_selector = (By.XPATH, '//li[@data-qa="number-pages-ellipsis"]/following::a[@data-qa="pager-page"]')
     page_selector = (By.XPATH, '//a[@data-qa="pager-page"]')
 
     links = []
@@ -51,7 +50,6 @@ class SearchPage(BasePage):
             pages = WebDriverWait(self.driver, 10).until(
                     EC.presence_of_all_elements_located(self.page_selector)
                 )
-            print(pages)
             return int(pages[-1].text)
 
         except TimeoutException:
