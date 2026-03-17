@@ -10,6 +10,7 @@ class SearchPage(BasePage):
 
     job_title_selector = (By.XPATH, '//a[@data-qa="serp-item__title"]')
     pages_count_selector = (By.XPATH, '//li[@data-qa="number-pages-ellipsis"]/following::a[@data-qa="pager-page"]')
+    page_selector = (By.XPATH, '//a[@data-qa="pager-page"]')
 
     links = []
 
@@ -37,14 +38,18 @@ class SearchPage(BasePage):
         """
         Вызывается при инциициализации
         Возвращает количество страниц в поиске,
-        либо 0 (первую страницу), если страниц мало
         """
-        self.scroll_page_to_bottom()
-        try:
-            return int(
-                WebDriverWait(self.driver, 10).until(
-                    EC.element_to_be_clickable(self.pages_count_selector)
-                ).text
+        self.driver.execute_script(
+            'arguments[0].scrollIntoView(true);',
+            self.job_titles[-1]
             )
+        # self.scroll_page_to_bottom()
+        try:
+            pages = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located(self.page_selector)
+                )
+            print(pages)
+            return int(pages[-1].text)
+
         except TimeoutException:
             return 0

@@ -36,5 +36,6 @@ class BasePage:
             html
         )
 
+
     def quit(self):
         self.driver.quit()
