@@ -4,7 +4,7 @@ from datetime import datetime
 from pages.JobPage import JobPage
 from pages.SearchPage import SearchPage
 from helpers.write_results import write_links, write_results
-from helpers.parse_links import get_job_data
+from helpers.get_job_data import get_job_data
 from helpers.skills import get_all_skills
 
 
