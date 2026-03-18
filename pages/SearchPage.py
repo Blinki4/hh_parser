@@ -21,6 +21,9 @@ class SearchPage(BasePage):
     def job_titles(self):
         return self.find_all(self.job_title_selector)
 
+    def make_url(self, page):
+        return self.base_url + f'search/vacancy?text={self.query}&page={page}&ored_clusters=true&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&L_save_area=true'
+
     def collect_links(self, pages: int) -> list[str]:
         """
         Открывает каждую страницу поиска
@@ -28,15 +31,15 @@ class SearchPage(BasePage):
         :param pages: Количество страниц
         :return: Массив ссылок на вакансию
         """
+
+        links: list[str] = []
+
         def get_links():
             self.scroll_page_to_bottom()
             # time.sleep(1) # Пока не трогать
             for el in self.job_titles:
                 link = el.get_attribute('href')
                 links.append(link)
-
-
-        links: list[str] = []
 
         if pages > 0:
             for page in range(pages):
@@ -47,14 +50,9 @@ class SearchPage(BasePage):
             get_links()
         return links
 
-
-    def make_url(self, page):
-        return self.base_url + f'search/vacancy?text={self.query}&page={page}&ored_clusters=true&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&L_save_area=true'
-
-
     def get_pages_count(self) -> int:
         """
-        Возвращает количество страниц в поиске,
+        Возвращает количество страниц в поиске
         """
         self.driver.execute_script(
             'arguments[0].scrollIntoView(true);',
@@ -65,6 +63,5 @@ class SearchPage(BasePage):
                     EC.presence_of_all_elements_located(self.page_selector)
                 )
             return int(pages[-1].text)
-
         except TimeoutException:
             return 0
