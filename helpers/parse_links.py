@@ -1,9 +1,9 @@
 from pages.JobPage import JobPage
-from models.parsed_links import ParsedLink
+from models.job_data import JobData
 
 
-def parse_links(links: list[str], page: JobPage) -> list[ParsedLink]:
-    result: list[ParsedLink] = []
+def get_job_data(links: list[str], page: JobPage) -> list[JobData]:
+    result: list[JobData] = []
     try:
         for i in range(len(links)):
             page.open(links[i])
@@ -12,7 +12,7 @@ def parse_links(links: list[str], page: JobPage) -> list[ParsedLink]:
             for skill in page.skills:
                 skills.append(skill.text)
 
-            job_data = ParsedLink(name=page.job_name, link=links[i], skills=skills)
+            job_data = JobData(name=page.job_name, link=links[i], skills=skills)
             result.append(job_data.model_dump())
             print(i + 1)
 

@@ -1,4 +1,4 @@
-from models.parsed_links import ParsedLink
+from models.job_data import JobData
 
 
 def sort_skills(skills: list[str]):
@@ -16,7 +16,7 @@ def sort_skills(skills: list[str]):
     return sorted_skills
 
 
-def get_all_skills(data: list[ParsedLink]):
+def get_all_skills(data: list[JobData]):
     result: list[str] = []
 
     for link in data:

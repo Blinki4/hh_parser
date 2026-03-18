@@ -1,6 +1,6 @@
 import json
 
-from models.parsed_links import ParsedLink
+from models.job_data import JobData
 from pathlib import Path
 
 
@@ -12,7 +12,7 @@ def write_links(links: list[str]) -> None:
         for link in links:
             file.write(f'{link}\n')
 
-def write_results(data: list[ParsedLink], skills: list[tuple]):
+def write_results(data: list[JobData], skills: list[tuple]):
     output_dir = Path('results')
     output_dir.mkdir(exist_ok=True)
 
