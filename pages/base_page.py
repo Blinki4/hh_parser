@@ -7,7 +7,8 @@ from selenium.webdriver.common.by import By
 class BasePage:
     base_url = 'https://hh.ru/'
 
-
+    # TODO: Драйвер нужно передавать извне, хз зачем я его создаю в init
+    # TODO: Его нужно передавать сюда, и потом открывать вручную, а функцию конфигурации вывести отдельно
     def __init__(self):
         options = Options()
         options.add_argument('--headless')

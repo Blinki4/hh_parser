@@ -3,7 +3,7 @@ import time
 from selenium.common import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pages.BasePage import BasePage
+from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 

@@ -1,8 +1,8 @@
 import sys
 
 from datetime import datetime
-from pages.JobPage import JobPage
-from pages.SearchPage import SearchPage
+from pages.job_page import JobPage
+from pages.search_page import SearchPage
 from helpers.write_results import write_links, write_results
 from helpers.get_job_data import get_job_data
 from helpers.skills import get_all_skills
