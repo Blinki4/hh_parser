@@ -1,32 +1,22 @@
 import sys
 
 from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.chrome.options import Options
 from pages.job_page import JobPage
 from pages.search_page import SearchPage
 from helpers.write_results import write_links, write_results
 from helpers.get_job_data import get_job_data
 from helpers.skills import get_all_skills
+from helpers.format_query import format_query
+from helpers.config import config_driver
 
-def config_driver() -> WebDriver:
-    options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--window-size=1920,1080')
-    options.add_argument("--disable-gpu")
-    driver = webdriver.Chrome(options=options)
-    driver.implicitly_wait(10)
-    return driver
 
 def main():
     print(f'Start: {datetime.now()}')
-    query = sys.argv[1]
-
+    query = format_query(sys.argv[1])
     driver = config_driver()
     ###
     # Поиск ссылок на вакансии
-    search_page = SearchPage(driver, query) # TODO: Заменять пробелы в поиске на +
+    search_page = SearchPage(driver, query)
     search_page.open(search_page.url)
     print('Начался поиск, не прерывайте выполнение программы')
     pages = search_page.get_pages_count()

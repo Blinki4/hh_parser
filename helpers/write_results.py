@@ -1,7 +1,11 @@
 import json
+import os
 
 from models.job_data import JobData
 from pathlib import Path
+
+home_dir = os.path.expanduser('~')
+home_path = Path(home_dir)
 
 
 def write_links(links: list[str]) -> None:
@@ -17,7 +21,7 @@ def write_results(data: list[JobData], skills: list[tuple]):
     output_dir.mkdir(exist_ok=True)
 
 
-    with open(output_dir / 'data.txt', 'w', encoding='utf-8') as file:
+    with open(output_dir / 'data.json', 'w', encoding='utf-8') as file:
         file.write(json.dumps(data, indent=4, ensure_ascii=False))
 
 
@@ -28,4 +32,5 @@ def write_results(data: list[JobData], skills: list[tuple]):
 
 
 if __name__ == '__main__':
-    pass
+    print(home_dir)
+    print(home_path)

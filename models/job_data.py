@@ -5,3 +5,4 @@ class JobData(BaseModel):
     name: str
     link: str
     skills: list[str]
+    # TODO: Больше данных

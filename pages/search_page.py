@@ -13,14 +13,30 @@ class SearchPage(BasePage):
     def __init__(self, driver: WebDriver, query: str):
         super().__init__(driver)
         self.query: str = query
-        self.url: str = self.base_url + f'search/vacancy?text={query}&ored_clusters=true&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&L_save_area=true'
+        self.url: str = self.make_url()
 
     @property
     def job_titles(self):
         return self.find_all(self.job_title_selector)
 
-    def make_url(self, page):
+    def make_url(self, page: int = 0):
         return self.base_url + f'search/vacancy?text={self.query}&page={page}&ored_clusters=true&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line&search_field=name&search_field=company_name&search_field=description&enable_snippets=false&L_save_area=true'
+
+    def get_pages_count(self) -> int:
+        """
+        Возвращает количество страниц в поиске
+        """
+        self.driver.execute_script(
+            'arguments[0].scrollIntoView(true);',
+            self.job_titles[-1]
+            )
+        try:
+            pages = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located(self.page_selector)
+                )
+            return int(pages[-1].text)
+        except TimeoutException:
+            return 0
 
     def collect_links(self, pages: int) -> list[str]:
         """
@@ -47,19 +63,3 @@ class SearchPage(BasePage):
             self.open(self.url)
             get_links()
         return links
-
-    def get_pages_count(self) -> int:
-        """
-        Возвращает количество страниц в поиске
-        """
-        self.driver.execute_script(
-            'arguments[0].scrollIntoView(true);',
-            self.job_titles[-1]
-            )
-        try:
-            pages = WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_all_elements_located(self.page_selector)
-                )
-            return int(pages[-1].text)
-        except TimeoutException:
-            return 0
