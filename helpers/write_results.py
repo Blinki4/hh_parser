@@ -9,16 +9,16 @@ home_path = Path(home_dir)
 
 
 def write_links(links: list[str]) -> None:
-    output_dir = Path('results')
-    output_dir.mkdir(exist_ok=True)
+    output_dir = Path(home_path) / 'Desktop' / 'results'
+    output_dir.mkdir(exist_ok=True, parents=True)
 
     with open(output_dir / 'links.txt', 'w', encoding='utf-8') as file:
         for link in links:
             file.write(f'{link}\n')
 
 def write_results(data: list[JobData], skills: list[tuple]):
-    output_dir = Path('results')
-    output_dir.mkdir(exist_ok=True)
+    output_dir = Path(home_path) / 'Desktop' / 'results'
+    output_dir.mkdir(exist_ok=True, parents=True)
 
 
     with open(output_dir / 'data.json', 'w', encoding='utf-8') as file:
