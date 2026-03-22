@@ -4,19 +4,31 @@ from selenium.webdriver.common.by import By
 
 
 class JobPage(BasePage):
-
     skill_selector = (By.XPATH, '//li[@data-qa="skills-element"]')
     job_name_selector = (By.XPATH, '//h1[@data-qa="vacancy-title"]')
+    salary_selector = (By.XPATH, '//div[@data-qa="vacancy-salary"]')
+    experience_selector = (By.XPATH, '//div[@data-qa="work-experience-text]')
+    work_format_selector = (By.XPATH, '//p[@data-qa="work-formats-text"]')
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-
 
     @property
     def skills(self):
         return self.find_all(self.skill_selector)
 
-
     @property
     def job_name(self):
         return self.find(self.job_name_selector).text
+
+    @property
+    def salary(self):
+        return self.find(self.salary_selector).text
+
+    @property
+    def experience(self):
+        return self.find(self.experience_selector).text
+
+    @property
+    def work_format(self):
+        return self.find(self.work_format_selector).text
