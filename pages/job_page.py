@@ -7,7 +7,7 @@ class JobPage(BasePage):
     skill_selector = (By.XPATH, '//li[@data-qa="skills-element"]')
     job_name_selector = (By.XPATH, '//h1[@data-qa="vacancy-title"]')
     salary_selector = (By.XPATH, '//div[@data-qa="vacancy-salary"]')
-    experience_selector = (By.XPATH, '//div[@data-qa="work-experience-text]')
+    experience_selector = (By.XPATH, '//span[@data-qa="vacancy-experience"]')
     work_format_selector = (By.XPATH, '//p[@data-qa="work-formats-text"]')
 
     def __init__(self, driver: WebDriver):
