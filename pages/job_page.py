@@ -1,3 +1,4 @@
+from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.webdriver import WebDriver
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
@@ -23,12 +24,21 @@ class JobPage(BasePage):
 
     @property
     def salary(self):
-        return self.find(self.salary_selector).text
+        try:
+            return self.find(self.salary_selector).text
+        except NoSuchElementException:
+            return 'Не указано'
 
     @property
     def experience(self):
-        return self.find(self.experience_selector).text
+        try:
+            return self.find(self.experience_selector).text
+        except NoSuchElementException:
+            return 'Не указано'
 
     @property
     def work_format(self):
-        return self.find(self.work_format_selector).text
+        try:
+            return self.find(self.work_format_selector).text.replace('Формат работы: ', '')
+        except NoSuchElementException:
+            return 'Не указано'

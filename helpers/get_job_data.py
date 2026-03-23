@@ -12,7 +12,6 @@ def get_job_data(links: list[str], job_page: JobPage) -> list[JobData]:
             for skill in job_page.skills:
                 skills.append(skill.text)
 
-            formatted_work_format = job_page.work_format.replace('Формат работы: ', '')
 
             job_data = JobData(
                 name=job_page.job_name,
@@ -20,7 +19,7 @@ def get_job_data(links: list[str], job_page: JobPage) -> list[JobData]:
                 skills=skills,
                 salary=job_page.salary,
                 experience=job_page.experience,
-                work_format=formatted_work_format
+                work_format=job_page.work_format
             )
             result.append(job_data.model_dump())
             print(i + 1)
