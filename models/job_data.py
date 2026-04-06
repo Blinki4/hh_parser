@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class JobData(BaseModel):
+class Job(BaseModel):
     name: str
     link: str
     skills: list[str]
