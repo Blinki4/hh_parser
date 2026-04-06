@@ -12,7 +12,6 @@ class Parser:
         self.job_page = JobPage(self.driver)
         self.search_page.open(self.search_page.url)
 
-
     def _get_pages_count(self) -> int:
         pages_count = self.search_page.get_pages_count()
         print(f'Всего найдено страниц: {pages_count}')
@@ -23,7 +22,6 @@ class Parser:
         links = self.search_page.collect_links(self._get_pages_count())
         print(f'Всего найдено вакансий: {len(links)}')
         return links
-
 
     def get_jobs(self, links: list[str]) -> list[Job]:
         result: list[Job] = []
