@@ -1,4 +1,3 @@
-from helpers.config import config_driver
 from models.job_data import Job
 from pages.job_page import JobPage
 from pages.search_page import SearchPage
@@ -6,10 +5,9 @@ from pages.search_page import SearchPage
 
 class Parser:
     def __init__(self, driver, query):
-        self.driver = config_driver()
         self.query = query
-        self.search_page = SearchPage(self.driver, self.query)
-        self.job_page = JobPage(self.driver)
+        self.search_page = SearchPage(driver, self.query)
+        self.job_page = JobPage(driver)
         self.search_page.open(self.search_page.url)
 
     def _get_pages_count(self) -> int:

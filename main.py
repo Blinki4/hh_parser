@@ -2,7 +2,6 @@ import sys
 
 from parser.parser import Parser
 from writer.writer import Writer
-from datetime import datetime
 from helpers.format_query import format_query
 from helpers.config import config_driver
 from helpers.lead_time import lead_time
