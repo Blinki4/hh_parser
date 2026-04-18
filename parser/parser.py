@@ -4,6 +4,9 @@ from pages.search_page import SearchPage
 
 
 class Parser:
+    links: list[str] = []
+    parsedJobsList: list[Job] = []
+
     def __init__(self, driver, query):
         self.query = query
         self.search_page = SearchPage(driver, self.query)
@@ -16,16 +19,15 @@ class Parser:
         return pages_count
 
 
-    def get_links(self) -> list[str]:
-        links = self.search_page.collect_links(self._get_pages_count())
-        print(f'Всего найдено вакансий: {len(links)}')
-        return links
+    def get_links(self) -> None:
+        self.links = self.search_page.collect_links(self._get_pages_count())
+        print(f'Всего найдено вакансий: {len(self.links)}')
 
-    def get_jobs(self, links: list[str]) -> list[Job]:
-        result: list[Job] = []
+
+    def parse_jobs(self) -> list[Job]:
         try:
-            for i in range(len(links)):
-                self.job_page.open(links[i])
+            for i in range(len(self.links)):
+                self.job_page.open(self.links[i])
 
                 skills: list[str] = []
                 for skill in self.job_page.skills:
@@ -33,19 +35,19 @@ class Parser:
 
                 job_data = Job(
                     name=self.job_page.job_name,
-                    link=links[i],
+                    link=self.links[i],
                     skills=skills,
                     salary=self.job_page.salary,
                     experience=self.job_page.experience,
                     work_format=self.job_page.work_format
                 )
-                result.append(job_data.model_dump())
+                self.parsedJobsList.append(job_data.model_dump())
                 print(i + 1)
 
-            return result
+            return self.parsedJobsList
         except KeyboardInterrupt:
             print('Прервано... Промежуточные результаты сохранены в директории results')
-            return result
+            return self.parsedJobsList
 
 
     def _sort_skills(self, skills: list[str]):
