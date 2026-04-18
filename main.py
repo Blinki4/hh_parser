@@ -14,7 +14,7 @@ def main():
     writer = Writer()
     parser.get_links()
     writer.write_links(parser.links)
-    jobs_data = parser.parse_jobs()
+    jobs_data = parser.try_parse_jobs()
     skills = parser.get_job_skills(jobs_data)
     writer.write_job_data(jobs_data)
     writer.write_skills(skills)
