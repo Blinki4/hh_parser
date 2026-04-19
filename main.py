@@ -24,10 +24,12 @@ def main():
 
     links = links_parser.collect_links()
     writer.write_links(links)
-
+    ###
+    #Этот блок запускать в разных процессах
     jobs_parser = JobsParser()
     parsed_jobs = jobs_parser.parse_jobs(links)
     skills = jobs_parser.get_all_sorted_skills()
+    ###
     writer.write_job_data(parsed_jobs)
     writer.write_skills(skills)
     print('Результаты сформированы в директории results')
