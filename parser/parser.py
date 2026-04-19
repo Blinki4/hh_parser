@@ -11,29 +11,32 @@ from pages.search_page import SearchPage
 
 
 class Parser:
+    """
+    DEPRECATED
+    """
     def __init__(self, query, links):
         self.query = query
         self.driver = config_driver()
-        # self.search_page = SearchPage(self.driver, self.query)
+        self.search_page = SearchPage(self.driver, self.query)
         self.job_page = JobPage(self.driver)
-        # self.search_page.open(self.search_page.url)
-        # self.links: list[str] = []
+        self.search_page.open(self.search_page.url)
+        self.links: list[str] = []
         self.links = links
         self.parsedJobsList: list[Job] = []
 
-    # def _get_pages_count(self) -> int:
-    #     pages_count = self.search_page.get_pages_count()
-    #     print(f'Всего найдено страниц: {pages_count}')
-    #     return pages_count
-    #
-    #
-    # def collect_links(self) -> None:
-    #     self.links = self.search_page.collect_links(self._get_pages_count())
-    #     print(f'Всего найдено вакансий: {len(self.links)}')
+    def _get_pages_count(self) -> int:
+        pages_count = self.search_page.get_pages_count()
+        print(f'Всего найдено страниц: {pages_count}')
+        return pages_count
 
 
-    # def get_links(self):
-    #     return self.links
+    def collect_links(self) -> None:
+        self.links = self.search_page.collect_links(self._get_pages_count())
+        print(f'Всего найдено вакансий: {len(self.links)}')
+
+
+    def get_links(self):
+        return self.links
 
     def try_parse_jobs(self) -> list[Job]:
         try:
