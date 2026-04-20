@@ -14,19 +14,19 @@ class JobsParser:
 
     def parse_jobs(self, links: list[str]):
         for i in range(len(links)):
-            self.parse_one_job(links[i])
+            self._parse_one_job(links[i])
             print(f'Вакансия {i + 1} просмотрена')
 
         self.driver.quit()
         return self.parsed_jobs
 
 
-    def parse_one_job(self, link):
+    def _parse_one_job(self, link):
         self.job_page.open(link)
         job_data = Job(
             name=self.job_page.job_name,
             link=link,
-            skills=self.collect_skills_from_job(),
+            skills=self._collect_skills_from_job(),
             salary=self.job_page.salary,
             experience=self.job_page.experience,
             work_format=self.job_page.work_format
@@ -34,7 +34,7 @@ class JobsParser:
         self.parsed_jobs.append(job_data.model_dump())
 
 
-    def collect_skills_from_job(self):
+    def _collect_skills_from_job(self):
         skills: list[str] = []
         for skill in self.job_page.skills:
             skills.append(skill.text)
