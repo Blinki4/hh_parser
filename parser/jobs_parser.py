@@ -41,13 +41,13 @@ class JobsParser:
         return skills
 
 
-    def get_all_sorted_skills(self):
+    def get_all_sorted_skills(self, parsed_jobs):
         # TODO Вызов этой функции можно поместить в parse_jobs,
         #  а результат записывать в экземпляр.
         #  Потому что эту функцию нельзя вызывать до вызова parse_jobs
         unsorted_result: list[str] = []
 
-        for job in self.parsed_jobs:
+        for job in parsed_jobs:
             for skill in job['skills']:
                 unsorted_result.append(skill)
 

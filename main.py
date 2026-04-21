@@ -5,7 +5,7 @@ from parser.links_parser import LinksParser
 from writer.writer import Writer
 from helpers.format_query import format_query
 from helpers.lead_time import lead_time
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, Pool
 from typing import Any
 
 
@@ -28,6 +28,7 @@ def split_list_into_chunks(array: list[Any], full_chunks_count) -> list[list[Any
 def parse_chunk(links_chunk):
     jobs_parser = JobsParser()
     parsed_jobs = jobs_parser.parse_jobs(links_chunk)
+    return parsed_jobs
 
 
 @lead_time
@@ -48,25 +49,37 @@ def main():
     print(len(chunks), 'chunks count')
 
 
-    result = []
 
-    processes = []
-    for i in chunks:
-        process = Process(target=parse_chunk, args=(i,))
-        process.start()
-        processes.append(process)
+    # processes = []
+    # for i in chunks:
+    #     process = Process(target=parse_chunk, args=(i,))
+    #     process.start()
+    #     processes.append(process)
+    #
+    #
+    # for p in processes:
+    #     p.join()
 
 
-    for p in processes:
-        p.join()
+    with Pool(len(chunks)) as pool:
+        result = pool.map(parse_chunk, chunks)
+        print(result)
+
+    full = []
+
+    for chunk in result:
+        for job in chunk:
+            full.append(job)
 
 
-    # file_writer.write_job_data(parsed_jobs)
-    # file_writer.write_skills(skills)
+    jobs_parser = JobsParser()
+
+    file_writer.write_job_data(full)
+    skills = jobs_parser.get_all_sorted_skills(full)
+    file_writer.write_skills(skills)
 
     print('Результаты сформированы в директории results')
 
-    print(result)
 
 if __name__ == '__main__':
     main()
