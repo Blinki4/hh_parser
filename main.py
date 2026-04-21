@@ -13,7 +13,7 @@ from typing import Any
 PROCESS_COUNT = 5
 
 def split_list_into_chunks(array: list[Any], full_chunks_count) -> list[list[Any]]:
-    full_chunk = divmod(len(array), full_chunks_count)
+    full_chunk, remainder = divmod(len(array), full_chunks_count)
     all_chunks = []
     chunk = []
     for element in array:
@@ -23,6 +23,7 @@ def split_list_into_chunks(array: list[Any], full_chunks_count) -> list[list[Any
             chunk = []
     all_chunks.append(chunk) # Если их все таки кратное количество, тут может быть пустой массив, потенциальная ошибка
     return all_chunks
+
 
 def parse_chunk(links_chunk):
     jobs_parser = JobsParser()
@@ -43,23 +44,25 @@ def main():
 
     file_writer.write_links(links)
 
-    full_chunk, remainder_chunk = divmod(len(links), PROCESS_COUNT)
-    print('CHUNK_COUNT', full_chunk, remainder_chunk)
-    all_chunks = []
-    chunk = []
+    # full_chunk, remainder_chunk = divmod(len(links), PROCESS_COUNT)
+    # print('CHUNK_COUNT', full_chunk, remainder_chunk)
+    # all_chunks = []
+    # chunk = []
+    #
+    #
+    # for link in links:
+    #     chunk.append(link)
+    #     if len(chunk) == full_chunk:
+    #         all_chunks.append(chunk)
+    #         chunk = []
+    # all_chunks.append(chunk)
 
+    chunks = split_list_into_chunks(links, PROCESS_COUNT)
 
-    for link in links:
-        chunk.append(link)
-        if len(chunk) == full_chunk:
-            all_chunks.append(chunk)
-            chunk = []
-    all_chunks.append(chunk)
-
-    print(json.dumps(all_chunks, indent=4))
+    print(json.dumps(chunks, indent=4), 'CHUNKS')
 
     processes = []
-    for i in all_chunks:
+    for i in chunks:
         process = Process(target=parse_chunk, args=(i,))
         process.start()
         processes.append(process)
