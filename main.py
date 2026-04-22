@@ -1,6 +1,6 @@
 import sys
-from parser.jobs_parser import SkillsSorter
-from parser.links_parser import LinksParser
+from parsers.jobs_parser import SkillsSorter
+from parsers.links_parser import LinksParser
 from writer.writer import Writer
 from helpers.format_string import replace_spaces_to_pluses
 from helpers.lead_time import lead_time

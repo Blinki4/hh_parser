@@ -45,7 +45,7 @@ class JobsParser:
 
 class SkillsSorter:
     def get_all_sorted_skills(self, parsed_jobs):
-        # TODO Вызов этой функции можно поместить в parse_jobs,
+        #  Вызов этой функции можно поместить в parse_jobs,
         #  а результат записывать в экземпляр.
         #  Потому что эту функцию нельзя вызывать до вызова parse_jobs
         unsorted_result: list[str] = []
@@ -58,7 +58,7 @@ class SkillsSorter:
         return sorted_skills
 
 
-    def _sort_skills(self, skills: list[str]):
+    def _sort_skills(self, skills: list[str]) -> list[tuple[str, int]]:
         result = {}
         for skill in skills:
             if skill in result:
