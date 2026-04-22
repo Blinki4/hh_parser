@@ -2,7 +2,7 @@ import sys
 from parser.jobs_parser import SkillsSorter
 from parser.links_parser import LinksParser
 from writer.writer import Writer
-from helpers.format_query import format_query
+from helpers.format_string import replace_spaces_to_pluses
 from helpers.lead_time import lead_time
 from multiprocessing import Pool
 from utils.chunks_manager import ChunksManager
@@ -12,7 +12,7 @@ FULL_CHUNKS_COUNT = 5 # Враки
 
 @lead_time
 def main():
-    query = format_query(sys.argv[1])
+    query = replace_spaces_to_pluses(sys.argv[1])
     file_writer = Writer()
     links_parser = LinksParser(query)
     links = links_parser.collect_links()
