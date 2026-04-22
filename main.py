@@ -10,8 +10,6 @@ from utils.chunks_manager import ChunksManager
 
 FULL_CHUNKS_COUNT = 5 # Враки
 
-
-
 @lead_time
 def main():
     query = format_query(sys.argv[1])
