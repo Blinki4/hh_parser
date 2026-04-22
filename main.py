@@ -1,11 +1,11 @@
 import sys
-from parser.jobs_parser import JobsParser, SkillsSorter
+from parser.jobs_parser import SkillsSorter
 from parser.links_parser import LinksParser
 from writer.writer import Writer
 from helpers.format_query import format_query
 from helpers.lead_time import lead_time
 from multiprocessing import Pool
-from helpers.chunks import split_list_into_chunks, get_chunks_together, parse_chunk
+from utils.chunks_manager import ChunksManager
 
 
 FULL_CHUNKS_COUNT = 5 # Враки
@@ -20,14 +20,14 @@ def main():
     links = links_parser.collect_links()
     file_writer.write_links(links)
 
-    chunks = split_list_into_chunks(links, FULL_CHUNKS_COUNT)
+    chunks = ChunksManager.split_list_into_chunks(links, FULL_CHUNKS_COUNT)
 
 
     with Pool(len(chunks)) as pool:
-        parsed_jobs = pool.map(parse_chunk, chunks)
+        parsed_jobs = pool.map(ChunksManager.parse_chunk, chunks)
 
 
-    result_data = get_chunks_together(parsed_jobs)
+    result_data = ChunksManager.join_chunks(parsed_jobs)
     sorter = SkillsSorter()
     file_writer.write_job_data(result_data)
     skills = sorter.get_all_sorted_skills(result_data)
