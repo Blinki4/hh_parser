@@ -41,6 +41,9 @@ class JobsParser:
         return skills
 
 
+
+
+class SkillsSorter:
     def get_all_sorted_skills(self, parsed_jobs):
         # TODO Вызов этой функции можно поместить в parse_jobs,
         #  а результат записывать в экземпляр.
