@@ -8,7 +8,7 @@ from multiprocessing import Pool
 from utils.chunks_manager import ChunksManager
 
 
-FULL_CHUNKS_COUNT = 5 # Враки
+FULL_CHUNKS_COUNT = 5
 
 @lead_time
 def main():

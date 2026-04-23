@@ -3,7 +3,6 @@ from pages.job_page import JobPage
 from models.job_data import Job
 
 
-# TODO Можно вшить чанк с ссылками в класс при инициализации, но пока буду передавать извне
 
 class JobsParser:
     def __init__(self):
@@ -50,9 +49,11 @@ class SkillsSorter:
         #  Потому что эту функцию нельзя вызывать до вызова parse_jobs
         unsorted_result: list[str] = []
 
+
         for job in parsed_jobs:
-            for skill in job['skills']:
-                unsorted_result.append(skill) #TODO Refactor
+            job_model = Job(**job)
+            for skill in job_model.skills:
+                unsorted_result.append(skill)
 
         sorted_skills = self._sort_skills(unsorted_result)
         return sorted_skills
