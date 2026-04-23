@@ -3,7 +3,6 @@ from pages.job_page import JobPage
 from models.job_data import Job
 
 
-# TODO Можно вшить чанк с ссылками в класс при инициализации, но пока буду передавать извне
 
 class JobsParser:
     def __init__(self):
@@ -45,20 +44,22 @@ class JobsParser:
 
 class SkillsSorter:
     def get_all_sorted_skills(self, parsed_jobs):
-        # TODO Вызов этой функции можно поместить в parse_jobs,
+        #  Вызов этой функции можно поместить в parse_jobs,
         #  а результат записывать в экземпляр.
         #  Потому что эту функцию нельзя вызывать до вызова parse_jobs
         unsorted_result: list[str] = []
 
+
         for job in parsed_jobs:
-            for skill in job['skills']:
+            job_model = Job(**job)
+            for skill in job_model.skills:
                 unsorted_result.append(skill)
 
         sorted_skills = self._sort_skills(unsorted_result)
         return sorted_skills
 
 
-    def _sort_skills(self, skills: list[str]):
+    def _sort_skills(self, skills: list[str]) -> list[tuple[str, int]]:
         result = {}
         for skill in skills:
             if skill in result:

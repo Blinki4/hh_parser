@@ -1,5 +1,5 @@
 from typing import Any
-from parser.jobs_parser import JobsParser
+from parsers.jobs_parser import JobsParser
 
 class ChunksManager:
     @staticmethod
