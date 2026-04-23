@@ -52,7 +52,7 @@ class SkillsSorter:
 
         for job in parsed_jobs:
             for skill in job['skills']:
-                unsorted_result.append(skill)
+                unsorted_result.append(skill) #TODO Refactor
 
         sorted_skills = self._sort_skills(unsorted_result)
         return sorted_skills
