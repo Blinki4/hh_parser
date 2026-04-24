@@ -13,9 +13,11 @@ FULL_CHUNKS_COUNT = 5
 @lead_time
 def main():
     query = replace_spaces_to_pluses(sys.argv[1])
-    file_writer = Writer()
+
     links_parser = LinksParser(query)
     links = links_parser.collect_links()
+
+    file_writer = Writer()
     file_writer.write_links(links)
 
     chunks = ChunksManager.split_list_into_chunks(links, FULL_CHUNKS_COUNT)
@@ -24,8 +26,8 @@ def main():
     with Pool(len(chunks)) as pool:
         parsed_jobs = pool.map(ChunksManager.parse_chunk, chunks)
 
-
     result_data = ChunksManager.join_chunks(parsed_jobs)
+
     sorter = SkillsSorter()
     file_writer.write_job_data(result_data)
     skills = sorter.get_all_sorted_skills(result_data)

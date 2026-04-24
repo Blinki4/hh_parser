@@ -1,7 +1,7 @@
 import os.path
 from pathlib import Path
 import json
-from models.job_data import Job
+from models.job import Job
 
 
 class Writer:

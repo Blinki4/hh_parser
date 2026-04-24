@@ -1,6 +1,6 @@
 from helpers.config import config_driver
 from pages.job_page import JobPage
-from models.job_data import Job
+from models.job import Job
 
 
 
