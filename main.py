@@ -13,6 +13,7 @@ FULL_CHUNKS_COUNT = 5
 
 @lead_time
 def main():
+    print('Начало работы, не прерывайте процесс выполнения...')
     query = replace_spaces_to_pluses(sys.argv[1])
 
     links_parser = LinksParser(query)
