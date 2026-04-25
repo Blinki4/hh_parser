@@ -1,7 +1,8 @@
 import sys
 from parsers.jobs_parser import SkillsSorter
 from parsers.links_parser import LinksParser
-from writer.writer import Writer
+from writers.csv_writer import CsvWriter
+from writers.writer import Writer
 from helpers.format_string import replace_spaces_to_pluses
 from helpers.lead_time import lead_time
 from multiprocessing import Pool
@@ -12,6 +13,7 @@ FULL_CHUNKS_COUNT = 5
 
 @lead_time
 def main():
+    print('Начало работы, не прерывайте процесс выполнения...')
     query = replace_spaces_to_pluses(sys.argv[1])
 
     links_parser = LinksParser(query)
@@ -32,6 +34,8 @@ def main():
     file_writer.write_job_data(result_data)
     skills = sorter.get_all_sorted_skills(result_data)
     file_writer.write_skills(skills)
+    csv_writer = CsvWriter()
+    csv_writer.write_parsed_jobs(result_data)
 
     print('Результаты сформированы в директории results')
 
