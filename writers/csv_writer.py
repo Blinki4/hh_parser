@@ -5,7 +5,6 @@ from models.job import Job
 class CsvWriter(Writer):
 
     def write_parsed_jobs(self, parsed_jobs):
-        field_names = ['Название', 'Зарплата', 'Опыт работы', 'Формат работы', 'Ключевые навыки', 'Ссылка']
         mapping = {
             'name' : 'Название',
             'salary' : 'Зарплата',
@@ -14,8 +13,9 @@ class CsvWriter(Writer):
             'skills' : 'Ключевые навыки',
             'link' : 'Ссылка'
         }
-
-        # TODO в цикле пройтись по mapping и составить field_names из значений, чтоб избежать связности
+        field_names = []
+        for key, value in mapping.items():
+            field_names.append(value)
 
         translated = []
         for job in parsed_jobs:
