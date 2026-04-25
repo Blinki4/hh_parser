@@ -9,4 +9,5 @@ def config_driver() -> WebDriver:
     options.add_argument("--disable-gpu")
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
+    driver.set_page_load_timeout(60)
     return driver
