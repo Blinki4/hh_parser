@@ -1,6 +1,6 @@
 import csv
 from writers.writer import Writer
-from models.job import Job
+
 
 class CsvWriter(Writer):
     def __init__(self):
